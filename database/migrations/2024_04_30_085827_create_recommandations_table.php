@@ -16,8 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->date('date_recommandation');
             $table->foreignId('etablissement_id')->constrained()->onDelete('cascade');
-
-
         });
     }
 

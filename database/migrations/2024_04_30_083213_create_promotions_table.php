@@ -18,10 +18,6 @@ return new class extends Migration
             $table->date('date_fin');
             $table->text('details_promo');
             $table->foreignId('etablissement_id')->constrained()->onDelete('cascade');
-
-
-
-
         });
     }
 

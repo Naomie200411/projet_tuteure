@@ -18,9 +18,6 @@ return new class extends Migration
             $table->date('date_visite');
             $table->foreignId('etablissement_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-
-
-
         });
     }
 
