@@ -24,12 +24,12 @@ class LoginController extends Controller
 
         // Récupération de l'utilisateur authentifié
         $user = User::where('email', $credentials['email'])->first();
+       
+         // Supprimer tous les autres tokens de l'utilisateur
+         $user->tokens()->delete();
 
-
-         // Authentification de l'utilisateur
-        Auth::login($user);
-        // Générer le jeton d'authentification pour l'utilisateur
-        $token = $user->createToken('API Token')->plainTextToken;
+         // Générer un nouveau token d'accès avec un nom spécifique
+         $token = $user->createToken('Custom API Token')->plainTextToken;
 
         // Retourner le jeton d'authentification en réponse
         return response()->json(['message' => 'User logged in successfully', 'token' => $token]);

@@ -16,10 +16,12 @@ Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
 
 
-Route::middleware(AuthenticateWithToken::class)->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::resource('etab', EtablissementController::class);
 });
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 
 
