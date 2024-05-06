@@ -7,6 +7,7 @@ use App\Http\Middleware\AuthenticateWithToken;
 use App\Http\Requests\EtablissementRequest;
 use Illuminate\Http\Request;
 use App\Models\Etablissement;
+use Illuminate\Support\Facades\Auth;
 
 class EtablissementController extends Controller
 {
@@ -36,8 +37,9 @@ class EtablissementController extends Controller
         $etablissement->name_proprio = $validatedData['name_proprio'];
         $etablissement->validate_status = $validatedData['validate_status'];
         $etablissement->note_moy = $validatedData['note_moy'];
-        $etablissement->user_id = $validatedData['user_id'];
-
+        $etablissement->user_id = Auth::user()->id;
+        
+        //dd($etablissement);
         // Enregistrer l'établissement dans la base de données
         $etablissement->save();
 
@@ -55,7 +57,6 @@ class EtablissementController extends Controller
             'name_proprio' => 'string',
             'validate_status' => 'string',
             'note_moy' => 'numeric',
-            'user_id' => 'exists:users,id',
         ]);
 
         $etablissement = Etablissement::findOrFail($id);

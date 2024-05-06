@@ -16,10 +16,12 @@ Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware("auth:sanctum")->group(function () {
     Route::resource('etab', EtablissementController::class);
+    Route::post('/logout', [LoginController::class, 'logout']);
+
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware("auth:sanctum")->get('/user', function (Request $request) {
     return $request->user();
 });
 

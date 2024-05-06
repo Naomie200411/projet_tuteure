@@ -34,4 +34,12 @@ class LoginController extends Controller
         // Retourner le jeton d'authentification en réponse
         return response()->json(['message' => 'User logged in successfully', 'token' => $token]);
     }
+
+    public function logout(Request $request)
+    {
+        
+        $request->user()->tokens()->delete();
+
+        return response()->json(['message' => 'User logout']);
+    }
 }

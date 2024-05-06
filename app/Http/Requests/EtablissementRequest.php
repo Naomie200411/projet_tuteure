@@ -29,7 +29,6 @@ class EtablissementRequest extends FormRequest
             'name_proprio' => 'required|string',
             'validate_status' => 'required|string',
             'note_moy' => 'required|numeric',
-            'user_id' => 'required|exists:users,id',
         ];
     }
 }
