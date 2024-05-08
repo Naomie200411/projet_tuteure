@@ -7,6 +7,7 @@ use App\Http\Middleware\AuthenticateWithToken;
 use App\Http\Requests\EtablissementRequest;
 use Illuminate\Http\Request;
 use App\Models\Etablissement;
+use App\Models\Interaction;
 use Illuminate\Support\Facades\Auth;
 
 class EtablissementController extends Controller
@@ -21,7 +22,14 @@ class EtablissementController extends Controller
     public function show($id)
     {
         $etablissement = Etablissement::findOrFail($id);
-        return response()->json(['data' => $etablissement], 200);
+
+         // Enregistrer automatiquement une interaction dans la base de données
+        $interaction = new Interaction();
+        $interaction->user_id = Auth::user()->id; // Récupérer l'ID de l'utilisateur actuellement authentifié
+        $interaction->etablissement_id = $etablissement->id;
+        $interaction->date_visite = now(); // Date actuelle
+        $interaction->save();
+        return response()->json(['data' => $etablissement , 'interaction' => $interaction], 200);
     }
     public function store(EtablissementRequest $request)
     {
