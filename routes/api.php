@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\EtablissementController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PromotionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -14,10 +16,12 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::delete('/users/{id}', [UserController::class, 'destroyUser']);
+Route::get('/notifs' , [NotificationController::class , 'sendNotif']);
 
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::resource('etab', EtablissementController::class);
+    Route::resource('promo' , PromotionController::class);
     Route::post('/logout', [LoginController::class, 'logout']);
 
 });
